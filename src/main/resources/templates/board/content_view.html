@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragment.html :: head">
+</head>
+<body>
+<div class="container">
+  <h3 style="text-align:center; padding-top:100px;">게시글 상세</h3>
+  <br>
+  <br>
+  
+  <form th:action="@{'/view/board/delete/' + ${content_view.bid}}" th:method="post">
+    <table class="table" style="text-align:center;">
+      <tr>
+        <th>글번호</th>
+        <th><span th:text="${content_view.bid}"></span></th>
+      </tr>
+      <tr>
+        <th>이름</th>
+        <th><span class="col-sm-10" th:text="${content_view.bname}"></span>
+        </th>
+      </tr>
+      <tr>
+        <th>제목</th>
+        <th><span class="col-sm-10" th:text="${content_view.btitle}"></span>
+        </th>
+      </tr>
+      <tr>
+        <th>내용</th>
+        <th><textarea class="col-sm-10" style=" border: none; height:300px; text-align: center;"
+                      th:text="${content_view.bcontent}" readonly></textarea>
+        </th>
+      </tr>
+      <tr>
+        <th>
+          <a th:href="@{'/view/board/edit/' + ${content_view.bid}}">수정하기</a>
+        </th>
+        <th>
+          <input type="submit" value="삭제하기"/>
+        </th>
+      </tr>
+    </table>
+  </form>
+</div>
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragment.html :: head">
+</head>
+<body>
+
+  <div class="container" style="padding-bottom:100px;">
+
+  <h3 style="text-align:center; padding-top:100px;">게시글 작성</h3>
+  <br>
+  <br>
+  <form th:action="@{/view/board/save}" method="post">
+    <table class="table" style="text-align:center;">
+      <tr>
+        <th>이름</th>
+        <th><input class="col-sm-10" type="text" name="bname"value=""/>
+        </th>
+      </tr>
+      <tr>
+        <th>제목</th>
+        <th><input class="col-sm-10" type="text" name="btitle"value=""/>
+        </th>
+      </tr>
+      <tr>
+        <th>내용</th>
+        <th><textarea class="col-sm-10" name="bcontent"style="height:300px;"></textarea>
+        </th>
+      </tr>
+      <tr>
+        <th>
+          <input type="submit" value="작성 완료"/>
+        </th>
+      </tr>
+    </table>
+  </form>
+</div>
+</body>
+</html>
