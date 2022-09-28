@@ -43,4 +43,10 @@ public interface IsBoardRepository extends JpaRepository<Issue_boardEntity , Lon
                     ":bdate"+
                     ")")
     void saveNativeQueryBoard(@Param("btitle") String btitle, @Param("bcontent")  String bcontent, @Param("bname") String bname, @Param("bhit") int bhit, @Param("bdate")LocalDateTime bdate);
+
+
+    @Query(nativeQuery = true,
+    value = "" +
+            "select group_concat(ib.bname) as concatParam from issue_board ib ")
+    ConcatParamIF nativeQueryGroupConcatTest();
 }

@@ -33,7 +33,7 @@ public class BoardService {
         Map<String , Object> hashMap = new HashMap<>();
         Pageable pageable = PageRequest.of(req.getPage(), req.getSize());
         Page<Issue_boardEntity> boardPagingList = isBoardRepository.findAll(pageable);
-        hashMap.put("list", boardPagingList);
+        hashMap.put("data", boardPagingList);
 
         return hashMap;
 
@@ -145,6 +145,15 @@ public class BoardService {
         isBoardRepository.saveNativeQueryBoard(issue_boardEntity.getBtitle(), issue_boardEntity.getBcontent(), issue_boardEntity.getBname(), issue_boardEntity.getBhit(), LocalDateTime.now());
         dtMap.put("code", "S");
         //dtMap.put("data", issue_board);
+        return dtMap;
+    }
+
+    public Map<String, Object> nativeQueryGroupConcatTest() {
+        log.info("nativeQueryGroupConcatTest");
+        Map<String, Object> dtMap = new HashMap<>();
+        ConcatParamIF concatParamIF = isBoardRepository.nativeQueryGroupConcatTest();
+        dtMap.put("code", "S");
+        dtMap.put("data", concatParamIF);
         return dtMap;
     }
 }

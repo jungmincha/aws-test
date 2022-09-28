@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
 <head th:replace="fragment.html :: head">
 </head>
 
 <body>
-
-  <div class="container">
-    <h3 style="text-align:center; padding-top:100px;">게시판 목록v.11</h3>
+  <div id="app"  class="container">
+    <h3 style="text-align:center; padding-top:100px;">{{ projectVersion }}</h3>
     <br>
     <br>
     <div style="float: left">
@@ -38,12 +38,61 @@
     </table>
   </div>
 </body>
+  <script>
+    new Vue({
+      el : '#app',
+      data: {
+        projectVersion: '게시판 목록v.11',
+        boardList: {}
+      },
+      // created() {
+      //   console.log('project start!')
+      //   this.init()
+      // },
+      method: {
+        async init() {
+          const {data: res} = await axios.post('/jpa/board', {
+            page : 0,
+            size : 10
+          }).then(res => {
+            console.log(res)
+          }).catch(res => {
+            console.error(res)
+          })
+        }
+      }
+    });
+  </script>
 <script>
 // XMLHttpRequest 객체의 인스턴스를 생성합니다.
-var xhr = new XMLHttpRequest();
-xhr.open("GET" ,"/board" , true );
-xhr.send();
-
+// var xhr = new XMLHttpRequest();
+// xhr.open("GET" ,"/jpa/board" , true );
+// xhr.send();
+// console.log('haha')
+// console.log(bbsList)
+// ss()
+// function ss () {
+//   let data = {
+//     page: 0,
+//     size: 10
+//   }
+//   $.ajax({
+//     type:"POST",
+//     url: "/jpa/board",
+//     contentType: 'application/json; charset=utf-8',
+//     dataType: "json",
+//     data:JSON.stringify(data)
+//   })
+//           .done(function (result) {
+//     console.log(result)
+//             bbsList = result.data.content
+//   })
+//           .fail(function (result) {
+//     console.log(result)
+//   })
+//           .always(function () {
+//             console.log("test")
+//           })
+// }
 </script>
-
 </html>

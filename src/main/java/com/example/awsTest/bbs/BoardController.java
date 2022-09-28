@@ -36,6 +36,11 @@ public class BoardController {
 
     }
 
+    @GetMapping("/native-query/group-concat-test")
+    public ResponseEntity<Map<String,Object>> nativeQueryGroupConcatTest() {
+        return ResponseEntity.ok(boardService.nativeQueryGroupConcatTest());
+    }
+
     @PostMapping("/query-dsl/board")//쿼리dsl로 작성한 게시판 읽기
     public ResponseEntity<Map<String , Object>> queryDslboardList(@RequestBody BoardSearchReq req){
         log.info("queryDslboardList");
