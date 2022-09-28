@@ -22,13 +22,6 @@ public class BoardController {
     private final BoardService boardService;
     private final ReplyService replyService;
 
-    @GetMapping("/vue")//jpa로 작성한 게시판 읽기
-    public String vue(){
-        log.info("vue-test");
-        return "vue/index";
-
-    }
-
     @PostMapping("/jpa/board")//jpa로 작성한 게시판 읽기
     public Map<String , Object> boardList(@RequestBody BoardSearchReq req){
         log.info("boardList");
