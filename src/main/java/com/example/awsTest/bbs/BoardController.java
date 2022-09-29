@@ -15,6 +15,7 @@ toy 프로젝트에서 가져온 코드입니다.
 */
 @Log4j2
 @RestController
+@RequestMapping("/api")
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class BoardController {

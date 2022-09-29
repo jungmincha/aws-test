@@ -4,17 +4,17 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ViewControllerTest {
-
-    @Test
-    void viewBoardList() {
-    }
-
-    @Test
-    void viewContent() {
-    }
-
-    @Test
-    void viewModify() {
-    }
-}
+//class ViewControllerTest {
+//
+//    @Test
+//    void viewBoardList() {
+//    }
+//
+//    @Test
+//    void viewContent() {
+//    }
+//
+//    @Test
+//    void viewModify() {
+//    }
+//}

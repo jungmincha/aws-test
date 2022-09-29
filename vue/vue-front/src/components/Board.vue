@@ -1,6 +1,13 @@
 <template>
-<h3>안녕하세요</h3>
-
+  <div>
+    <h3>안녕하세요</h3>
+      <div v-for="i in bbsList">
+        {{ i.bname }}
+        {{ i.btitle }}
+        {{ i.bcontent }}
+        {{ i.bdate }}
+    </div>
+  </div>
 </template>
 
 <script>
@@ -19,9 +26,10 @@ export default {
   },
   methods: {
     async init() {
-      const { data: res } = await axios.get('/jpa/board')
-
-      if (res.code !== 'S' || res.data === null) return
+      const { data: res } = await axios.post('/api/jpa/board', {
+        page: 0,
+        size: 10
+      })
 
       console.log('res', res)
 
