@@ -8,10 +8,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Slf4j
 public class VuejsController {
 
-    @GetMapping("/vue")//jpa로 작성한 게시판 읽기
+    @GetMapping("/")//jpa로 작성한 게시판 읽기
     public String vue(){
         log.info("vue-test");
         return "vue/index";
 
     }
+
+//    @GetMapping("/vue/board")//jpa로 작성한 게시판 읽기
+//    public String boardList(){
+//        log.info("vue-boardList");
+//        return "vue/index";
+//    }
 }

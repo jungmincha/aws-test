@@ -6,7 +6,7 @@ const path = require('path')
 
 module.exports = {
   dev: {
-
+    historyApiFallback: true,
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',

@@ -1,6 +1,8 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
+    <h2>게시판으로 이동</h2>
+    <router-link to="/board">게시판이동</router-link>
     <h2>Essential Links</h2>
     <ul>
       <li>
