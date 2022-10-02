@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import Board from '@/components/Board'
 import BoardWrite from '@/components/BoardWrite'
+import Login from '@/components/Login'
 
 Vue.use(Router)
 
@@ -23,6 +24,11 @@ const router = new Router({
       path: '/board/write',
       name: 'BoardWrite',
       component: BoardWrite
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login
     }
   ]
 })

@@ -1,7 +1,7 @@
 <template>
   <div>
     <br>
-    <div style="margin-right:1400px ;">
+    <div style="margin-right:1000px ;">
       <router-link to="/board/write">글 작성</router-link>
     </div>
     <br/>
@@ -36,8 +36,14 @@ export default {
       bbsList: {}
     }
   },
+  // computed:{
+  //   ...mapGetters({
+  //     token: 'getUser'
+  //   })
+  // },
   async created() {
     console.log('success!')
+    console.log(this.$store.state.allUsers)
     await this.init()
   },
   methods: {

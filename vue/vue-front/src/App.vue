@@ -36,14 +36,12 @@
 <!--          </el-submenu>-->
 <!--          <el-menu-item index="4" disabled>Info</el-menu-item>-->
           <el-menu-item index="5"><router-link to="/board">자유 게시판 👨‍👨‍👧‍👧</router-link></el-menu-item>
-          <el-menu-item index="6">로그인</el-menu-item>
+          <el-menu-item v-if="!token" index="6"><router-link to="/login">로그인😎</router-link></el-menu-item>
         </el-menu>
         <div class="line"></div>
 
       </el-header>
       <el-main>
-        <br>
-        <br>
         <router-view/>
       </el-main>
       <el-footer>
@@ -59,12 +57,18 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   name: 'App',
   data() {
     return {
       activeIndex: '1'
     };
+  },
+  computed: {
+    ...mapGetters({
+      token: "getToken"
+    })
   },
   methods: {
     handleSelect(key, keyPath) {
@@ -75,6 +79,11 @@ export default {
 </script>
 
 <style>
+
+/*.el-container{*/
+/*  margin: 0px 10% 30px 10%;*/
+/*  padding-top: 100px;*/
+/*}*/
 
 /*el-header {*/
 /*  !* background-color: #B3C0D1; *!*/

@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "authority_jm")
+@Table(name = "authority")
 @Getter
 @Setter
 @Builder

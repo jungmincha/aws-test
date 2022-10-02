@@ -48,7 +48,13 @@ export default {
       }
     };
   },
+  created() {
+    this.init()
+  },
   methods: {
+    init() {
+      console.log(this.$store.state.allUsers)
+    },
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {

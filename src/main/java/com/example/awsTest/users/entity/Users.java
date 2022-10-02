@@ -9,7 +9,7 @@ import javax.validation.constraints.Email;
 import java.util.Set;
 
 @Entity //데이터베이스와 1:1로 맵핑되는 객체
-@Table(name = "users_jm")//user는 예약어라 users로
+@Table(name = "users")//user는 예약어라 users로
 @Getter
 @Setter
 @Builder
@@ -38,7 +38,7 @@ public class Users extends BaseTimeEntity {
     @Column(name = "activated")
     private boolean activated; //활성화 여부
 
-//    @JsonIgnore
+    //    @JsonIgnore
 //    @Column(name = "activated")
 //    private boolean activated; //활성화 여부
 //
@@ -50,10 +50,10 @@ public class Users extends BaseTimeEntity {
 
 
 
-//    @ManyToMany//User(회원) 객체와 Authority(권한)객체의 N:N 관계를  User 1 : N user_authority(조인테이블이다) N : 1 Autority 로 정의 했다
-//    @JoinTable(
-//            name = "user_authority_jm",
-//            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "user_id")},
-//            inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "authority_name")})
-//    private Set<Authority> authorities;
+    @ManyToMany//User(회원) 객체와 Authority(권한)객체의 N:N 관계를  User 1 : N user_authority(조인테이블이다) N : 1 Autority 로 정의 했다
+    @JoinTable(
+            name = "user_authority",
+            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "authority_name")})
+    private Set<Authority> authorities;
 }
