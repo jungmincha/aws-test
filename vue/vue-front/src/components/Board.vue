@@ -2,7 +2,7 @@
   <div>
     <br>
     <div style="margin-right:1000px ;">
-      <router-link to="/board/write">글 작성</router-link>
+      <el-button @click="gotoWrite">글 작성</el-button>
     </div>
     <br/>
     <br/>
@@ -27,6 +27,7 @@
 
 <script>
 import axios from 'axios'
+import { mapGetters } from "vuex";
 export default {
   name: "Board",
 
@@ -36,14 +37,13 @@ export default {
       bbsList: {}
     }
   },
-  // computed:{
-  //   ...mapGetters({
-  //     token: 'getUser'
-  //   })
-  // },
+  computed:{
+    ...mapGetters({
+      isLogin: 'isLogin'
+    })
+  },
   async created() {
     console.log('success!')
-    console.log(this.$store.state.allUsers)
     await this.init()
   },
   methods: {
@@ -61,6 +61,14 @@ export default {
       ).catch(err => {
         console.log(err)
       })
+    },
+    gotoWrite() {
+      if(this.isLogin === false) {
+        alert('로그인 후 이용해주세요.')
+        this.$router.push('/login')
+      } else {
+        this.$router.push('/board/write')
+      }
     }
   }
 }

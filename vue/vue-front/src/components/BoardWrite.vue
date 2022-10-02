@@ -4,7 +4,7 @@
     <br>
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px" class="demo-ruleForm">
       <el-form-item label="이름" prop="bname">
-        <el-input v-model="ruleForm.bname"></el-input>
+        <el-input v-model="ruleForm.bname" disabled></el-input>
       </el-form-item>
       <el-form-item label="제목" prop="btitle">
         <el-input v-model="ruleForm.btitle"></el-input>
@@ -23,13 +23,11 @@
 
 <script>
 import axios from "axios";
+import {mapGetters} from "vuex";
 export default {
   name: "BoardWrite",
   data() {
     return {
-      userInfo: {
-        loginStat: false
-      },
       ruleForm: {
         btitle: '',
         bname: '',
@@ -48,14 +46,18 @@ export default {
       }
     };
   },
+  computed: {
+    ...mapGetters({
+      userInfo: 'getUserInfo',
+      accessToken: 'getToken'
+    })
+  },
   created() {
-    this.init()
+    this.ruleForm.bname = this.userInfo.nickname
   },
   methods: {
-    init() {
-      console.log(this.$store.state.allUsers)
-    },
     submitForm(formName) {
+      console.log(this.accessToken)
       this.$refs[formName].validate((valid) => {
         if (valid) {
           //alert('submit!')
@@ -63,7 +65,13 @@ export default {
             btitle: this.ruleForm.btitle,
             bname: this.ruleForm.bname,
             bcontent: this.ruleForm.bcontent
-          }).then(res => {
+          },
+            {
+              headers: {
+                Authorization : 'Bearer ' + this.accessToken
+              }
+            }
+          ).then(res => {
             alert('작성 되었어요 :)')
             console.log(res)
             this.$router.push('/board')

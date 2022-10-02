@@ -58,9 +58,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .and()
                 .authorizeRequests()//HttpServletRequest를 사용하는 요청들에 대한 접근 제한을 설정 한다.
-//                .antMatchers("/").permitAll()
+                .antMatchers("/").permitAll()//스프링 서버의 static에 있는 build된 vue파일 읽는 경로
                 .antMatchers("/api/native-query/board").permitAll()//게시판 목록 조회
                 .antMatchers("/api/authenticate").permitAll()//로그인
+                .antMatchers("/api/authenticate/getUserInfo").permitAll()//유저정보 꺼내오기
 //                .antMatchers("/view/login").permitAll()
 //                .antMatchers("/api/authenticate").permitAll()
 //                .antMatchers("/api/test/members").permitAll()

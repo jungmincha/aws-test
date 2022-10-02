@@ -36,7 +36,7 @@ public class TokenProvider implements InitializingBean {
             @Value("${jwt.secret}") String secret,
             @Value("${jwt.token-validity-in-seconds}") long tokenValidityInSeconds) {
         this.secret = secret;
-        this.tokenValidityInMilliseconds = tokenValidityInSeconds * 1000;
+        this.tokenValidityInMilliseconds = tokenValidityInSeconds * 3;
     }
 
     @Override//빈이 생성되고 주입을 받은 후에 secret 값을 Base64 Decode 해서 key 변수에 할당
@@ -51,7 +51,7 @@ public class TokenProvider implements InitializingBean {
                 .collect(Collectors.joining(","));
 
         long now = (new Date()).getTime();
-        Date accessTokenValidTime = new Date(now + this.tokenValidityInMilliseconds);//엑세스 토큰의 유효기간 설정
+        Date accessTokenValidTime = new Date(now + this.tokenValidityInMilliseconds);//엑세스 토큰의 유효기간 설정(ex 3일)
 
         return Jwts.builder()
                 .setSubject(authentication.getName())

@@ -1,54 +1,39 @@
 <template>
   <div class="hello">
     <br>
-    AllUsers {{ userCount }}
-    JimmyCount {{ jimmyCount }}
-    <el-form :model="ruleForm" ref="ruleForm" label-width="120px" class="demo-ruleForm">
-    <el-input v-model = ruleForm.username></el-input>
-      <el-input v-model = ruleForm.password></el-input>
-      <el-button type="primary" @click="submitForm('ruleForm')">submit</el-button>
-    </el-form>
-    <router-link to="/board">
+    <div v-if="isLogin">{{ userInfo.nickname }} 환영합니다.</div>
     <img src="https://pbs.twimg.com/media/E0rpfQ4UUAY1_ja.jpg"></img>
-    </router-link>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 import { mapMutations } from 'vuex' //실행해주는 함수니까 method 내에 정의
+
 export default {
   name: 'HelloWorld',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App',
-      ruleForm: {
-        username: '',
-        password: ''
-      }
+      msg: 'Welcome to Your Vue.js App'
     }
+  },
+  created() {
+    console.log('isLogin', this.isLogin)
+    console.log('userInfo', this.userInfo)
   },
   computed: {
     ...mapGetters({
-      userCount: "allUsersCount",
-      jimmyCount: "findByJimmy",
-      token: "getToken"
+      userInfo: 'getUserInfo',
+      isLogin: 'isLogin'
     })
-  },
-  created() {
-    this.init()
   },
   methods: {
     // ...mapMutations(['addUser']),
-    init() {
-      console.log('success')
-      console.log(this.token)
-    },
-    submitForm() {
-      console.log('submitForm')
-      const reqObj = this.ruleForm
-      this.$store.commit('addUser', reqObj)
-    }
+    // submitForm() {
+    //   console.log('submitForm')
+    //   const reqObj = this.ruleForm
+    //   this.$store.commit('addUser', reqObj)
+    // }
   }
 }
 </script>

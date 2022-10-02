@@ -1,43 +1,84 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
+import axios from "axios";
+import createPersistedState from 'vuex-persistedstate';
 Vue.use(Vuex)
 
-export default new Vuex.Store({
+// 모듈은 나중에 분리
+//import userStore from "./module/userStore";
 
+const store = new Vuex.Store({
+  //modules: userStore,
+  //state를 localstorage에 저장
+  plugins: [
+    createPersistedState()
+  ],
   state: {//data
-    allUsers: [
-      {username: 'tommy', password: '1q2w3e4r'},
-      {username: 'jimmy', password: '1q2w3e4r'}
-    ],
-    getToken: ''
-  },
-  getters: { //computed 역할
-    allUsersCount: state => { //allUsers의 숫자
-      return state.allUsers.length
-    },
-    findByJimmy: state => { //allUsers 중 이름이 jimmy인 숫자
-      let count = 0;
-      state.allUsers.forEach(arr => {
-        if(arr.username === 'jimmy') {
-          count ++
-        }
-      })
-      return count
-    },
-    getToken: state => {
-      return state.getToken
-    }
+    userInfo: null,
+    accessToken: '',
+    isLogin: false,
+    isLoginError: false
   },
   mutations: { //state 값을 변화시켜 준다.
-    addUser: (state, payload) => {
-      state.allUsers.push(payload)//payload를 넣어준다.
+    //로그인이 성공 했을 때
+    loginSuccess(state, payload, token) {
+      state.isLogin = true
+      state.isLoginError = false
+      state.accessToken = token
+      state.userInfo = payload
+      console.log('loginSuccess mutation')
+      console.log(state.isLogin)
     },
-    setToken: (state, payload) => {
-      state.getToken = payload
+    loginError(state) {
+      state.isLogin = false
+      state.isLoginError = true
+    },
+    logout(state) {
+      console.log('logout')
+      localStorage.removeItem('token')
+      state.isLogin = false
+      state.isLoginError = false
+      state.userInfo = false
     }
   },
   actions: {
-
+    //유저 정보 얻어오기
+    getMemberInfo({ commit }) {
+      let token = localStorage.getItem("token")
+      let config = {
+        token: token
+      }
+      axios
+        .post('/api/authenticate/getUserInfo', config)
+        .then(response => {
+          let userInfo = {
+            username: response.data.username,
+            nickname: response.data.nickname,
+            authorityName: response.data.authorityName
+          }
+          console.log('login 성공했을 때...')
+          console.log(userInfo)
+          //토큰 정보가 유효하면 state값을 변화시켜주는 mutations의 loginSuccess에 값을 넣어준다.
+          commit('loginSuccess', userInfo, token)
+        })
+        .catch(error => {
+          console.log(error)
+          //토큰 정보가 유효하지 않으면 logout을 한다.
+          commit('logout')
+        })
+    }
+  },
+  getters: { //computed 역할
+    getToken: state => {
+      return state.accessToken
+    },
+    isLogin: state => {
+      console.log('getters state', state.isLogin)
+      return state.isLogin
+    },
+    getUserInfo: state => {
+      return state.userInfo
+    }
   }
 });
+export default store;

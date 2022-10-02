@@ -36,7 +36,12 @@
 <!--          </el-submenu>-->
 <!--          <el-menu-item index="4" disabled>Info</el-menu-item>-->
           <el-menu-item index="5"><router-link to="/board">자유 게시판 👨‍👨‍👧‍👧</router-link></el-menu-item>
-          <el-menu-item v-if="!token" index="6"><router-link to="/login">로그인😎</router-link></el-menu-item>
+          <el-menu-item v-if="!isLogin" index="6"><router-link to="/login">로그인😎</router-link></el-menu-item>
+          <el-submenu  v-if="isLogin" index="7">
+            <template slot="title">{{ userInfo.nickname }} 님 환영합니다😊</template>
+          <el-menu-item index="6" @click="logout">로그아웃</el-menu-item>
+                      <el-menu-item index="6-1" @click="logout" >정보수정</el-menu-item>
+          </el-submenu>
         </el-menu>
         <div class="line"></div>
 
@@ -57,7 +62,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 export default {
   name: 'App',
   data() {
@@ -67,10 +72,12 @@ export default {
   },
   computed: {
     ...mapGetters({
-      token: "getToken"
+      isLogin: 'isLogin',
+      userInfo: 'getUserInfo'
     })
   },
   methods: {
+    ...mapMutations(['logout']),
     handleSelect(key, keyPath) {
       console.log(key, keyPath)
     }
