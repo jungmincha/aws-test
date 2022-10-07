@@ -15,7 +15,7 @@ const store = new Vuex.Store({
   ],
   state: {//data
     userInfo: null,
-    accessToken: '',
+    accessToken: null,
     isLogin: false,
     isLoginError: false
   },
@@ -43,6 +43,7 @@ const store = new Vuex.Store({
       state.isLogin = false
       state.isLoginError = false
       state.userInfo = false
+      state.accessToken= null
     }
   },
   actions: {
