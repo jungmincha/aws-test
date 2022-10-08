@@ -57,7 +57,6 @@ export default {
   },
   methods: {
     submitForm(formName) {
-      console.log(this.accessToken)
       this.$refs[formName].validate((valid) => {
         if (valid) {
           //alert('submit!')

@@ -22,7 +22,6 @@ const store = new Vuex.Store({
   mutations: { //state 값을 변화시켜 준다.
     //로그인이 성공 했을 때
     loginSuccess(state, payload) {
-      let accessToken = payload.accessToken
       let userInfo = {
         username: payload.username,
         nickname: payload.nickname,
@@ -30,7 +29,7 @@ const store = new Vuex.Store({
       }
       state.isLogin = true
       state.isLoginError = false
-      state.accessToken = accessToken
+      state.accessToken = payload.accessToken
       state.userInfo = userInfo
     },
     loginError(state) {
@@ -42,7 +41,7 @@ const store = new Vuex.Store({
       localStorage.removeItem('token')
       state.isLogin = false
       state.isLoginError = false
-      state.userInfo = false
+      state.userInfo = null
       state.accessToken= null
     }
   },

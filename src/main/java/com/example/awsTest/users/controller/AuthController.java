@@ -51,7 +51,8 @@ public class AuthController {
     public ResponseEntity<UserInfoDto> authorize(@RequestBody TokenDto tokenDto) {//파라미터
 //        HttpHeaders httpHeaders = new HttpHeaders();
 //        httpHeaders.add(JwtFilter.AUTHORIZATION_HEADER, "Bearer " + tokenDto.getToken());//header에 넣어줌
-        //System.out.println(tokenProvider.validateToken(tokenDto.getToken()));
+        log.info("check token valid : " + tokenProvider.validateToken(tokenDto.getToken()));
+//        System.out.println(tokenProvider.validateToken(tokenDto.getToken()));
 
         String username = tokenProvider.getAuthentication(tokenDto.getToken()).getName();
         //이름으로 유저 정보 조회
