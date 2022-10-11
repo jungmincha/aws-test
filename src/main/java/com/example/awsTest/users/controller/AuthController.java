@@ -7,6 +7,8 @@ import com.example.awsTest.users.dto.TokenDto;
 import com.example.awsTest.users.dto.UserInfoDto;
 import com.example.awsTest.users.entity.Users;
 import com.example.awsTest.users.repository.UsersRepository;
+import com.example.awsTest.users.service.AuthService;
+import com.example.awsTest.users.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
@@ -28,36 +30,16 @@ import java.util.Optional;
 @RequestMapping("/api")
 public class AuthController {
 
-    private final TokenProvider tokenProvider;
-
-    private final AuthenticationManagerBuilder authenticationManagerBuilder;
-
-    private final UsersRepository usersRepository;
+    private final AuthService authService;
 
     @PostMapping("/authenticate")
     public ResponseEntity<TokenDto> authorize(@Valid @RequestBody LoginDto loginDto) {//파라미터
-        UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword());//토큰 객체 생성
+        return ResponseEntity.ok(authService.authorize(loginDto));
 
-        Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
-        SecurityContextHolder.getContext().setAuthentication(authentication);//토큰 객체가 실행될 대 loadbyusername 메서드가 실행, 그걸 시큐리티에 저장
-
-        String jwt = tokenProvider.createToken(authentication); //jwt 생성
-
-        return new ResponseEntity<>(new TokenDto(jwt), HttpStatus.OK); // body에도 넣어줌
     }
 
     @PostMapping("/authenticate/getUserInfo")
-    public ResponseEntity<UserInfoDto> authorize(@RequestBody TokenDto tokenDto) {//파라미터
-//        HttpHeaders httpHeaders = new HttpHeaders();
-//        httpHeaders.add(JwtFilter.AUTHORIZATION_HEADER, "Bearer " + tokenDto.getToken());//header에 넣어줌
-        log.info("check token valid : " + tokenProvider.validateToken(tokenDto.getToken()));
-//        System.out.println(tokenProvider.validateToken(tokenDto.getToken()));
-
-        String username = tokenProvider.getAuthentication(tokenDto.getToken()).getName();
-        //이름으로 유저 정보 조회
-        Users users = usersRepository.findByUsername(username).orElseThrow(()-> new RuntimeException("회원 정보가 없습니다."));
-
-        return new ResponseEntity<>(new UserInfoDto(users.getUsername(), users.getNickname(), users.getAuthorityName()), HttpStatus.OK); // body에도 넣어줌
+    public ResponseEntity<UserInfoDto> getUserInfo(@RequestBody TokenDto tokenDto) {//파라미터
+        return ResponseEntity.ok(authService.getUserInfo(tokenDto));
     }
 }
