@@ -2,7 +2,7 @@
   <div class="hello">
     <br>
     <div v-if="isLogin">{{ userInfo.nickname }} 환영합니다.</div>
-    사이트 버전 1.4
+    사이트 버전 1.6
     <img src="https://pbs.twimg.com/media/E0rpfQ4UUAY1_ja.jpg"></img>
   </div>
 </template>
