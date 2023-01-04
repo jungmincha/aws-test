@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @RestController
@@ -17,15 +18,18 @@ import java.util.List;
 public class LabController {
 
     private final UserService userService;
+    private final LabService labService;
 
 
-//    @GetMapping("/test")
-//    public ResponseEntity<List<Users>> getMemberList() {
-//        return ResponseEntity.ok(userService.getMemberList());
-//    }
 
     @GetMapping("/hello")
     public ResponseEntity<String> getHello() {
         return ResponseEntity.ok("hello-world");
+    }
+
+    @GetMapping("/exceldownload")
+    public ResponseEntity getExcelDownLoad(HttpServletResponse response) {
+        labService.getExcelDownLoad(response);
+        return ResponseEntity.ok("success");
     }
 }
